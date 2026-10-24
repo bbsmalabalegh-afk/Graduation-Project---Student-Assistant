@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - Student Success Predictor</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- ملف الـ CSS الموحد بتاعنا -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Navbar بسيط -->
+    <nav class="navbar navbar-expand-lg custom-nav py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-white" href="#">نظام التنبؤ بالتعثر الأكاديمي</a>
+            <a href="index.html" class="btn btn-outline-light btn-sm">تسجيل الخروج</a>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row g-4">
+            
+            <!-- نموذج إدخال بيانات الطالب -->
+            <div class="col-lg-6">
+                <div class="custom-card">
+                    <h4 class="fw-bold title-main mb-3">إدخال بيانات الطالب</h4>
+                    <p class="text-sub small mb-4">أدخل أداء الطالب الحالي لحساب احتمالية التعثر الأكاديمي.</p>
+
+                    <form id="predictForm">
+                        <div class="mb-3">
+                            <label for="attendance" class="form-label fw-semibold">نسبة الحضور (%)</label>
+                            <input type="number" class="form-control custom-input" id="attendance" placeholder="مثال: 85" min="0" max="100" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="midterm" class="form-label fw-semibold">درجة الميدترم (من 30)</label>
+                            <input type="number" class="form-control custom-input" id="midterm" placeholder="مثال: 22" min="0" max="30" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="practical" class="form-label fw-semibold">درجة العملي (من 20)</label>
+                            <input type="number" class="form-control custom-input" id="practical" placeholder="مثال: 18" min="0" max="20" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="gpa" class="form-label fw-semibold">المعدل التراكمي السابق (GPA)</label>
+                            <input type="number" step="0.01" class="form-control custom-input" id="gpa" placeholder="مثال: 3.2" min="0" max="4" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-main w-100">تحليل الأداء والتنبؤ</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- كارت عرض النتيجة -->
+            <div class="col-lg-6">
+                <div class="custom-card text-center d-flex flex-column justify-content-center align-items-center h-100">
+                    <h4 class="fw-bold title-main mb-3">نتيجة التنبؤ</h4>
+                    <p class="text-sub small mb-4">ستظهر نتيجة تحليل الذكاء الاصطناعي هنا بعد إدخال البيانات.</p>
+
+                    <!-- مربع النتيجة التفاعلي -->
+                    <div id="resultBox" class="result-placeholder p-4 w-100 rounded-3">
+                        <span class="fs-5 text-muted">في انتظار إدخال البيانات...</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+/* ================================================= */
+/* 1. الألوان الرسمية للمشروع (Color Palette)          */
+/* ================================================= */
+:root {
+  --ink: #14231d;
+  --muted: #66736d;
+  --line: #dfe6e2;
+  --surface: #ffffff;
+  --canvas: #f5f7f6;
+
+  --primary: #176b4d;
+  --primary-dark: #0f4f3a;
+  --primary-soft: #e6f2ed;
+
+  --blue: #4169a1;
+  --blue-soft: #eaf0f8;
+
+  --amber: #a76617;
+  --amber-soft: #fbf0df;
+
+  --red: #a74545;
+  --red-soft: #f9e8e7;
+
+  --purple: #745a9d;
+
+  --shadow: 0 18px 48px rgba(22, 46, 36, 0.09);
+}
+
+/* ================================================= */
+/* 2. الإعدادات العامة للشاشة                         */
+/* ================================================= */
+body {
+  background-color: var(--canvas) !important;
+  color: var(--ink);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* ================================================= */
+/* 3. تنسيق الصفحة الرئيسية (Index / Hero Section)    */
+/* ================================================= */
+.welcome-card {
+  background-color: var(--primary-soft);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  max-width: 650px;
+  box-shadow: var(--shadow);
+  margin: 100px auto 0 auto;
+  padding: 50px 30px;
+  text-align: center;
+}
+
+/* ================================================= */
+/* 4. تنسيق الزراير الأساسية (Buttons)               */
+/* ================================================= */
+.btn-main {
+  background-color: var(--primary) !important;
+  color: #ffffff !important;
+  padding: 12px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.btn-main:hover {
+  background-color: var(--primary-dark) !important;
+  color: #ffffff !important;
+}
+
+/* ================================================= */
+/* 5. تنسيق صفحة تسجيل الدخول (Login Page)           */
+/* ================================================= */
+.login-card {
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 420px;
+  margin: 80px auto;
+}
+
+.custom-input {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 14px;
+  background-color: var(--canvas);
+  color: var(--ink);
+}
+
+.custom-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.25rem rgba(23, 107, 77, 0.15);
+}
+
+/* ================================================= */
+/* 6. تنسيق لوحة التحكم (Dashboard & Navbar)        */
+/* ================================================= */
+.custom-nav {
+  background-color: var(--primary-dark);
+}
+
+.custom-card {
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 2.5rem;
+}
+
+.title-main {
+  color: var(--primary-dark) !important;
+}
+
+.text-sub {
+  color: var(--muted) !important;
+}
+
+.result-placeholder {
+  background-color: var(--canvas);
+  border: 2px dashed var(--line);
+}
+
+.status-safe {
+  background-color: var(--primary-soft) !important;
+  border: 1px solid var(--primary) !important;
+  color: var(--primary-dark) !important;
+}
+
+.status-risk {
+  background-color: var(--red-soft) !important;
+  border: 1px solid var(--red) !important;
+  color: var(--red) !important;
+}
