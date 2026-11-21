@@ -17,7 +17,10 @@
     <nav class="navbar navbar-expand-lg custom-nav py-3">
         <div class="container">
             <a class="navbar-brand fw-bold text-white" href="#">نظام التنبؤ بالتعثر الأكاديمي</a>
-            <a href="index.html" class="btn btn-outline-light btn-sm">تسجيل الخروج</a>
+            <div class="d-flex align-items-center gap-3">
+                <span id="userName" class="text-white small"></span>
+                <a href="index.html" id="logoutBtn" class="btn btn-outline-light btn-sm">تسجيل الخروج</a>
+            </div>
         </div>
     </nav>
 
@@ -28,30 +31,63 @@
             <div class="col-lg-6">
                 <div class="custom-card">
                     <h4 class="fw-bold title-main mb-3">إدخال بيانات الطالب</h4>
-                    <p class="text-sub small mb-4">أدخل أداء الطالب الحالي لحساب احتمالية التعثر الأكاديمي.</p>
+                    <p class="text-sub small mb-4">أدخل أداء الطالب الحالي لحساب احتمالية التعثر الأكاديمي (نفس مدخلات موديل الذكاء الاصطناعي).</p>
 
-                    <form id="predictForm">
-                        <div class="mb-3">
-                            <label for="attendance" class="form-label fw-semibold">نسبة الحضور (%)</label>
-                            <input type="number" class="form-control custom-input" id="attendance" placeholder="مثال: 85" min="0" max="100" required>
+                    <form id="predictForm" novalidate>
+                        <div id="formError" class="alert alert-danger small d-none" role="alert"></div>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label for="admission_grade" class="form-label fw-semibold">درجة القبول (من 200)</label>
+                                <input type="number" class="form-control custom-input" id="admission_grade" placeholder="مثال: 130" min="0" max="200" step="0.1" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="age_at_enrollment" class="form-label fw-semibold">السن عند الالتحاق</label>
+                                <input type="number" class="form-control custom-input" id="age_at_enrollment" placeholder="مثال: 19" min="15" max="80" required>
+                            </div>
+                            <div class="col-12"><hr class="my-1"><span class="small fw-semibold text-sub">الترم الأول</span></div>
+                            <div class="col-md-4">
+                                <label for="sem1_enrolled" class="form-label fw-semibold">المواد المسجلة</label>
+                                <input type="number" class="form-control custom-input" id="sem1_enrolled" placeholder="مثال: 6" min="0" max="30" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="sem1_approved" class="form-label fw-semibold">المواد اللي نجح فيها</label>
+                                <input type="number" class="form-control custom-input" id="sem1_approved" placeholder="مثال: 5" min="0" max="30" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="sem1_grade" class="form-label fw-semibold">متوسط الدرجات (من 20)</label>
+                                <input type="number" class="form-control custom-input" id="sem1_grade" placeholder="مثال: 12.5" min="0" max="20" step="0.1" required>
+                            </div>
+                            <div class="col-12"><hr class="my-1"><span class="small fw-semibold text-sub">الترم الثاني</span></div>
+                            <div class="col-md-4">
+                                <label for="sem2_enrolled" class="form-label fw-semibold">المواد المسجلة</label>
+                                <input type="number" class="form-control custom-input" id="sem2_enrolled" placeholder="مثال: 6" min="0" max="30" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="sem2_approved" class="form-label fw-semibold">المواد اللي نجح فيها</label>
+                                <input type="number" class="form-control custom-input" id="sem2_approved" placeholder="مثال: 4" min="0" max="30" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="sem2_grade" class="form-label fw-semibold">متوسط الدرجات (من 20)</label>
+                                <input type="number" class="form-control custom-input" id="sem2_grade" placeholder="مثال: 11.8" min="0" max="20" step="0.1" required>
+                            </div>
+                            <div class="col-12"><hr class="my-1"></div>
+                            <div class="col-md-6">
+                                <label for="tuition_up_to_date" class="form-label fw-semibold">المصروفات مسددة؟</label>
+                                <select class="form-select custom-input" id="tuition_up_to_date" required>
+                                    <option value="1">نعم</option>
+                                    <option value="0">لا</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="scholarship_holder" class="form-label fw-semibold">حاصل على منحة؟</label>
+                                <select class="form-select custom-input" id="scholarship_holder" required>
+                                    <option value="1">نعم</option>
+                                    <option value="0">لا</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="midterm" class="form-label fw-semibold">درجة الميدترم (من 30)</label>
-                            <input type="number" class="form-control custom-input" id="midterm" placeholder="مثال: 22" min="0" max="30" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="practical" class="form-label fw-semibold">درجة العملي (من 20)</label>
-                            <input type="number" class="form-control custom-input" id="practical" placeholder="مثال: 18" min="0" max="20" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="gpa" class="form-label fw-semibold">المعدل التراكمي السابق (GPA)</label>
-                            <input type="number" step="0.01" class="form-control custom-input" id="gpa" placeholder="مثال: 3.2" min="0" max="4" required>
-                        </div>
-
-                        <button type="submit" class="btn btn-main w-100">تحليل الأداء والتنبؤ</button>
+                        <button type="submit" id="predictBtn" class="btn btn-main w-100">تحليل الأداء والتنبؤ</button>
                     </form>
                 </div>
             </div>
@@ -72,5 +108,78 @@
         </div>
     </div>
 
+
+    <!-- ربط لوحة التحكم بالسيرفر وموديل الـ AI -->
+    <script src="js/api.js"></script>
+    <script>
+        Auth.requireLogin();
+
+        const user = Auth.user;
+        if (user) document.getElementById("userName").textContent = user.full_name;
+        document.getElementById("logoutBtn").addEventListener("click", () => Auth.clear());
+
+        const form = document.getElementById("predictForm");
+        const formError = document.getElementById("formError");
+        const resultBox = document.getElementById("resultBox");
+        const btn = document.getElementById("predictBtn");
+        const val = (id) => document.getElementById(id).value;
+
+        function readForm() {
+            return {
+                admission_grade: parseFloat(val("admission_grade")),
+                age_at_enrollment: parseInt(val("age_at_enrollment")),
+                sem1_enrolled: parseInt(val("sem1_enrolled")),
+                sem1_approved: parseInt(val("sem1_approved")),
+                sem1_grade: parseFloat(val("sem1_grade")),
+                sem2_enrolled: parseInt(val("sem2_enrolled")),
+                sem2_approved: parseInt(val("sem2_approved")),
+                sem2_grade: parseFloat(val("sem2_grade")),
+                tuition_up_to_date: val("tuition_up_to_date") === "1",
+                scholarship_holder: val("scholarship_holder") === "1",
+            };
+        }
+
+        function escapeHtml(t) {
+            const d = document.createElement("div");
+            d.textContent = t;
+            return d.innerHTML;
+        }
+
+        function showResult(r) {
+            const cls = { High: "status-risk", Medium: "status-medium", Low: "status-safe" }[r.risk_level];
+            resultBox.className = "p-4 w-100 rounded-3 " + cls;
+            const reasons = (r.reasons || []).map(x => "<li>" + escapeHtml(x) + "</li>").join("");
+            resultBox.innerHTML =
+                '<div class="fs-6">نسبة خطر التعثر</div>' +
+                '<div class="display-5 fw-bold my-2">' + r.risk_percent + '%</div>' +
+                '<div class="fs-5 fw-semibold">' + escapeHtml(r.risk_level_ar) + '</div>' +
+                '<div class="small mt-2">توقع الموديل: ' + escapeHtml(r.predicted_class_ar) + '</div>' +
+                (reasons ? '<ul class="result-reasons">' + reasons + '</ul>' : '') +
+                '<div class="small mt-3 opacity-75">النتيجة تقدير من موديل تعلم آلة وليست حكمًا نهائيًا.</div>';
+        }
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            formError.classList.add("d-none");
+            if (!form.checkValidity()) { form.reportValidity(); return; }
+            const data = readForm();
+            if (data.sem1_approved > data.sem1_enrolled || data.sem2_approved > data.sem2_enrolled) {
+                formError.textContent = "عدد المواد اللي نجح فيها مينفعش يكون أكبر من المواد المسجلة.";
+                formError.classList.remove("d-none");
+                return;
+            }
+            btn.disabled = true;
+            btn.textContent = "جاري التحليل...";
+            try {
+                showResult(await API.predict(data));
+            } catch (err) {
+                formError.textContent = err.message;
+                formError.classList.remove("d-none");
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "تحليل الأداء والتنبؤ";
+            }
+        });
+    </script>
 </body>
 </html>
