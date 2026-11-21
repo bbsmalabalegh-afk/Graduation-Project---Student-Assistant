@@ -1,5 +1,18 @@
+# --- AI / Data (بسملة + أحمد + نسخة Streamlit) ---
 pandas
 numpy
 scikit-learn
+xgboost
+joblib
 streamlit
 plotly
+
+# --- Back-End (عبد الرحمن) ---
+fastapi>=0.110
+uvicorn[standard]
+pydantic>=2
+PyJWT>=2.8
+
+# --- Tests ---
+pytest
+httpx

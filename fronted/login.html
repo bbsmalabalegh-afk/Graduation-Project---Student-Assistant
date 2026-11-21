@@ -22,7 +22,9 @@
             </div>
 
             <!-- نموذج الدخول -->
-            <form id="loginForm" action="dashboard.html" method="GET">
+            <div id="loginError" class="alert alert-danger small d-none" role="alert"></div>
+
+            <form id="loginForm" novalidate>
                 <div class="mb-3">
                     <label for="email" class="form-label fw-semibold">البريد الإلكتروني</label>
                     <input type="email" class="form-control custom-input" id="email" placeholder="student@univ.edu" required>
@@ -33,7 +35,7 @@
                     <input type="password" class="form-control custom-input" id="password" placeholder="••••••••" required>
                 </div>
 
-                <button type="submit" class="btn btn-main w-100 py-2">دخول للنظام</button>
+                <button type="submit" id="loginBtn" class="btn btn-main w-100 py-2">دخول للنظام</button>
             </form>
 
             <div class="text-center mt-4">
@@ -42,5 +44,40 @@
         </div>
     </div>
 
+
+    <!-- ربط تسجيل الدخول بالسيرفر -->
+    <script src="js/api.js"></script>
+    <script>
+        const form = document.getElementById("loginForm");
+        const errorBox = document.getElementById("loginError");
+        const btn = document.getElementById("loginBtn");
+
+        if (Auth.token) window.location.href = "dashboard.html";
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            errorBox.classList.add("d-none");
+            if (!form.checkValidity()) { form.reportValidity(); return; }
+
+            btn.disabled = true;
+            btn.textContent = "جاري الدخول...";
+            try {
+                const data = await API.login(
+                    document.getElementById("email").value.trim(),
+                    document.getElementById("password").value
+                );
+                Auth.save(data.access_token, data.user);
+                window.location.href = "dashboard.html";
+            } catch (err) {
+                errorBox.textContent = err.message === "Wrong email or password"
+                    ? "البريد الإلكتروني أو كلمة المرور غير صحيحة."
+                    : err.message;
+                errorBox.classList.remove("d-none");
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "دخول للنظام";
+            }
+        });
+    </script>
 </body>
 </html>

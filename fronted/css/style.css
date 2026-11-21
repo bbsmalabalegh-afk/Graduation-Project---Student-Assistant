@@ -137,3 +137,18 @@ body {
   border: 1px solid var(--red) !important;
   color: var(--red) !important;
 }
+/* ================================================= */
+/* 7. حالة الخطر المتوسط + أسباب النتيجة (ربط الـ API) */
+/* ================================================= */
+.status-medium {
+  background-color: var(--amber-soft) !important;
+  border: 1px solid var(--amber) !important;
+  color: var(--amber) !important;
+}
+
+.result-reasons {
+  text-align: right;
+  font-size: 0.9rem;
+  margin: 12px 0 0;
+  padding-right: 18px;
+}
